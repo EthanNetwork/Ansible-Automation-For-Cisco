@@ -1,0 +1,25 @@
+---
+hostname: "router00"
+
+# Gig0/0/0
+g000_ip: "10.1.1.1 255.255.255.0"
+g000_hsrp_priority: 110
+g000_ospf_priority: 110
+
+# Gig0/0/1
+g001_ip: "10.1.2.1 255.255.255.0"
+g001_hsrp_priority: 100
+g001_ospf_priority: 10
+
+loopback_ip: "10.255.255.1 255.255.255.255"
+
+# NAT
+pat_ip_netaddr: "192.168.1.0"
+pat_ip_wildcard: "0.0.0.255"
+
+# OSPF
+ospf_password: "YourSecureMD5Password"
+
+# HSRP VIPs
+hsrp_ip1: "10.1.1.254"
+hsrp_ip2: "10.1.2.254"

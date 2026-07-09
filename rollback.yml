@@ -1,0 +1,30 @@
+---
+- name: Rollback config from backup
+  hosts: asbr_routers
+  connection: network_cli
+  gather_facts: false
+
+  tasks:
+    - name: Find latest backup file
+      find:
+        paths: ./backups/
+        patterns: "{{ inventory_hostname }}*.cfg"
+        file_type: file
+      register: backup_files
+      delegate_to: localhost
+
+    - name: Use latest backup for rollback
+      set_fact:
+        latest_backup: "{{ backup_files.files | sort(attribute='ctime') | last }}"
+      when: backup_files.files | length > 0
+
+    - name: Load config from backup
+      cisco.ios.ios_config:
+        src: "{{ latest_backup.path }}"
+        replace: config
+      when: latest_backup is defined
+
+    - name: Save rollback config to startup
+      cisco.ios.ios_command:
+        commands:
+          - "write memory"
