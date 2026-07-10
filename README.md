@@ -77,4 +77,6 @@ ansible-playbook -i inventory.ini playbook.yaml
 
 This repo has not been run against production or shared infrastructure —
 it's scoped to a personal lab environment for practicing Ansible/YAML
-syntax and Cisco IOS module usage.
+syntax and Cisco IOS module usage. 
+
+Additional notes: while in the process of trying to pull a backup/basse image of my ISR4331 i ran into significant issues with using TFTP on my local Nobara Linux install, it is very averse to any use of unencrypted protocols, and as a result SCP copy after opening ssh service in my firewalld and port 22 (both closed after the lab was done) turned out to be the more reliable method of passing files. 
